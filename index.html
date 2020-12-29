@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, user-scalable=no" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <title>phina.js Assets Viewer</title>
+    <meta name="description" content="phina.js Assets Viewer" />
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/riot/2.3.18/riot+compiler.js'></script>
+    <style></style>
+  </head>
+  <body>
+    <script src="https://cdn.jsdelivr.net/gh/phi-jp/phina.js@v0.2.3/build/phina.js"></script>
+    <script src="main.js"></script>
+    <canvas id="mycanvas"></canvas>
+    <!-- ユーザー定義のタグをここに展開 -->
+    <app title='Hello, Riot.js'></app>
+    <!-- app タグを定義 -->
+    <script type="riot/tag">
+      <app>
+        <center><select id="image_selector">
+        </select></center>
+
+        this.title = opts.title;
+      </app>
+    </script>
+    <script>
+      // マウント
+      riot.mount('*');
+    </script>
+  </body>
+</html>
