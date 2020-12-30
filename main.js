@@ -5,13 +5,21 @@ var ASSETS = {
   // 画像
   image: {
     'tomapiko': 'assets/images/tomapiko_ss.png',
-    //'tiles': 'assets/images/tiles.png',
+    'tiles': 'assets/images/tiles.png',
   },
   // フレームアニメーション情報
   spritesheet: {
     'tomapiko_ss': 'https://cdn.jsdelivr.net/gh/phinajs/phina.js@develop/assets/tmss/tomapiko.tmss',
   },
 };
+
+var fs = require("fs");
+
+//var dirPath = "assets/images";
+// "path/to/target" 直下のファイルやディレクトリ全てがDirentオブジェクトの配列で返ってくる
+//var allDirents = fs.readdirSync(dirPath, { withFileTypes: true });
+
+//console.log(allDirents);
 /*
  * メインシーン
  */
