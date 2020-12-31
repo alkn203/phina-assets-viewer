@@ -1,7 +1,7 @@
 // グローバルに展開
 phina.globalize();
 // アセット
-var ASSETS = {
+/*var ASSETS = {
   // 画像
   image: {
     'tomapiko': 'assets/images/tomapiko_ss.png',
@@ -11,15 +11,7 @@ var ASSETS = {
   spritesheet: {
     'tomapiko_ss': 'https://cdn.jsdelivr.net/gh/phinajs/phina.js@develop/assets/tmss/tomapiko.tmss',
   },
-};
-
-var fs = require("fs");
-
-//var dirPath = "assets/images";
-// "path/to/target" 直下のファイルやディレクトリ全てがDirentオブジェクトの配列で返ってくる
-//var allDirents = fs.readdirSync(dirPath, { withFileTypes: true });
-
-//console.log(allDirents);
+};*/
 /*
  * メインシーン
  */
@@ -33,28 +25,57 @@ phina.define("MainScene", {
     // 背景色
     this.backgroundColor = 'black';
     // アセットマネージャー
-    var manager = phina.asset.AssetManager;
+    //var manager = phina.asset.AssetManager;
     // グループ
     var imageGroup = DisplayElement().addChildTo(this);
     // 画像アセット名の配列
-    var images = Object.keys(manager.assets.image);
+    //var images = Object.keys(manager.assets.image);
     // ドロップダウンリストを取得
     var selector = document.querySelector('#image_selector');
     // 選択肢を作成
-    images.each(function(name) {
-      var op = document.createElement('option');
-      op.text = name;
-      selector.appendChild(op);
-    });
+    //images.each(function(name) {
+    //  var op = document.createElement('option');
+    //  op.text = name;
+    //  selector.appendChild(op);
+    //});
     // 一番目の画像を表示
-    var sp = Sprite(images.first).addChildTo(imageGroup);
-    sp.setPosition(this.gridX.center(), this.gridY.center());
+    //var sp = Sprite(images.first).addChildTo(imageGroup);
+    //sp.setPosition(this.gridX.center(), this.gridY.center());
     var self = this;
     // 選択肢変更イベント
     selector.addEventListener('change', function(event) {
       imageGroup.children.clear();
       var sp = Sprite(event.target.value).addChildTo(imageGroup);
       sp.setPosition(self.gridX.center(), self.gridY.center());
+    });
+    // ファイル選択を取得
+    var fileImage = document.querySelector('#file_image');
+    // ファイル選択イベント
+    fileImage.addEventListener('change', function(event) {
+      var manager = phina.asset.AssetManager;
+      var file = event.target.files[0];
+      var name = file.name;
+      //
+      //manager.set('image', name, 'assets/images/' + name);
+      var n = '"' + name.split('.')[0] + '"'
+      var v = 'assets/images/' + name;
+      var ASSETS = {
+        // 画像
+        image: {
+          [n] : v,
+        },
+      };
+      
+      console.log(ASSETS)
+      
+      // アセットローダー
+      var loader = phina.asset.AssetLoader();
+      loader.load(ASSETS);
+      loader.on('load', function() {
+        var sp = Sprite(n).addChildTo(imageGroup);
+        sp.setPosition(self.gridX.center(), self.gridY.center());
+      });
+      console.log('assets/images/' + file.name);
     });
   },
 });
@@ -71,7 +92,7 @@ phina.main(function() {
     // 画面にフィットさせない
     fit: false,
     // アセット読み込み
-    assets: ASSETS,
+//    assets: ASSETS,
   });
   // fps表示
   //app.enableStats();
