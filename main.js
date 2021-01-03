@@ -47,10 +47,29 @@ phina.define("MainScene", {
     var self = this;
     
     tn.on('selected', function() {
-      this.alpha = 0.5;
-      Sprite(tn.name).addChildTo(imageGroup);
+      self.app.pushScene(ImageScene(tn.imageKey));
       
     });
+  },
+});
+/*
+ * イメージシーン
+ */
+phina.define("ImageScene", {
+  // 継承
+  superClass: 'DisplayScene',
+  // 初期化
+  init: function(imageKey) {
+    // 親クラス初期化
+    this.superInit({
+      width: SCREEN_WIDTH,
+      height: SCREEN_HEIGHT,
+    });
+    // 背景を半透明化
+    this.backgroundColor = 'rgba(0, 0, 0, 0.7)';
+    //
+    var sp = Sprite(imageKey).addChildTo(this);
+    sp.setPosition(this.gridX.center(), this.gridY.center());
   },
 });
 /*
@@ -68,7 +87,7 @@ phina.define("Thumbnail", {
     //
     this.setInteractive(true);
     //
-    this.name = imageKey;
+    this.imageKey = imageKey;
   },
   // 選択された時の処理
   onpointend: function() {
